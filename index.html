@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Melvin Paul — Product Builds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14171c;
+    --ink-2:#1b1f26;
+    --bone:#ece7dc;
+    --bone-dim:#b9b3a4;
+    --slate:#8a8f98;
+    --brass:#b6905a;
+    --sage:#6e9c7c;
+    --gold:#c9a227;
+    --rust:#a85c42;
+    --hair:#33383f;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--bone);
+    font-family:'IBM Plex Sans', system-ui, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--brass);color:var(--ink);}
+
+  a{color:inherit;text-decoration:none;}
+
+  .display{
+    font-family:'Oswald', 'Arial Narrow', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+  }
+  .mono{
+    font-family:'IBM Plex Mono', ui-monospace, monospace;
+  }
+
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.site{
+    position:sticky; top:0; z-index:50;
+    background:rgba(20,23,28,0.9);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--hair);
+  }
+  .nav-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 0;
+  }
+  .nav-brand{
+    font-family:'Oswald', sans-serif;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--bone);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .nav-brand span{color:var(--brass);}
+  .nav-brand a{transition:color .15s ease;}
+  .nav-brand a:hover{color:var(--brass);}
+  .crumb-sep{
+    color:var(--hair);
+    font-weight:400;
+  }
+  .crumb-current{
+    color:var(--slate);
+    font-weight:500;
+  }
+  .nav-links{
+    display:flex; gap:26px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--bone-dim);
+  }
+  .nav-links a:hover{color:var(--brass);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:84px 0 56px;
+    border-bottom:1px solid var(--hair);
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--brass);
+    margin-bottom:18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px; height:1px; background:var(--brass);
+    display:inline-block;
+  }
+  .hero h1{
+    font-family:'Oswald', sans-serif;
+    font-weight:700;
+    text-transform:uppercase;
+    font-size:clamp(38px, 6vw, 68px);
+    line-height:1.02;
+    margin:0 0 22px;
+    letter-spacing:0.005em;
+    max-width:820px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--sage);
+  }
+  .hero p.lead{
+    max-width:560px;
+    font-size:17px;
+    line-height:1.65;
+    color:var(--bone-dim);
+    margin:0 0 34px;
+  }
+
+  .ticket-row{
+    display:flex; flex-wrap:wrap; gap:14px;
+  }
+  .ticket-stat{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--bone-dim);
+    border:1px dashed var(--hair);
+    padding:10px 14px;
+    display:flex; flex-direction:column; gap:4px;
+    min-width:120px;
+  }
+  .ticket-stat b{
+    font-family:'Oswald', sans-serif;
+    font-size:22px;
+    color:var(--bone);
+    font-weight:600;
+    letter-spacing:0;
+  }
+
+  /* ---------- SECTION LABEL ---------- */
+  .section-label{
+    padding:44px 0 22px;
+    display:flex; align-items:baseline; justify-content:space-between;
+    border-bottom:1px solid var(--hair);
+    margin-bottom:34px;
+  }
+  .section-label h2{
+    font-family:'Oswald', sans-serif;
+    text-transform:uppercase;
+    font-weight:600;
+    font-size:26px;
+    margin:0;
+    letter-spacing:0.02em;
+  }
+  .section-label .note{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--slate);
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+  }
+
+  /* ---------- GRID / CARDS ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+    gap:20px;
+    padding-bottom:80px;
+  }
+  .card{
+    border:1px solid var(--hair);
+    background:var(--ink-2);
+    display:flex; flex-direction:column;
+    cursor:pointer;
+    transition:border-color .18s ease, transform .18s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  .card:hover{
+    border-color:var(--brass);
+    transform:translateY(-3px);
+  }
+  .card-thumb{
+    width:100%;
+    aspect-ratio:16/10;
+    overflow:hidden;
+    background:var(--ink);
+    border-bottom:1px solid var(--hair);
+    position:relative;
+  }
+  .card-thumb img{
+    width:100%; height:100%;
+    object-fit:cover;
+    object-position:top left;
+    display:block;
+    filter:saturate(0.92);
+    transition:transform .35s ease;
+  }
+  .card:hover .card-thumb img{transform:scale(1.045);}
+  .card-thumb.placeholder{
+    display:flex; align-items:center; justify-content:center;
+    background:
+      repeating-linear-gradient(135deg, var(--ink-2), var(--ink-2) 10px, #20242b 10px, #20242b 20px);
+  }
+  .card-thumb.placeholder .ph-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--slate);
+    border:1px dashed var(--hair);
+    padding:6px 12px;
+    background:var(--ink-2);
+  }
+  .card-body{
+    padding:22px 24px 24px;
+    display:flex; flex-direction:column; gap:16px;
+    flex-grow:1;
+  }
+  .card-top{
+    display:flex; justify-content:space-between; align-items:flex-start; gap:12px;
+  }
+  .card h3{
+    font-family:'Oswald', sans-serif;
+    text-transform:uppercase;
+    font-size:20px;
+    font-weight:600;
+    margin:0;
+    line-height:1.15;
+  }
+  .stamp{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:5px 9px;
+    border:1.5px solid currentColor;
+    border-radius:2px;
+    transform:rotate(-3deg);
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+  .stamp.live{color:var(--sage);}
+  .stamp.beta{color:var(--gold);}
+  .stamp.build{color:var(--rust);}
+  .stamp.engine{color:var(--brass);}
+
+  .card p.tag{
+    font-size:14px;
+    line-height:1.55;
+    color:var(--bone-dim);
+    margin:0;
+    flex-grow:1;
+  }
+  .chips{
+    display:flex; flex-wrap:wrap; gap:7px;
+  }
+  .chip{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    color:var(--slate);
+    border:1px solid var(--hair);
+    padding:4px 8px;
+    letter-spacing:0.02em;
+  }
+  .card-cta{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--brass);
+    display:flex; align-items:center; gap:8px;
+    margin-top:4px;
+  }
+  .card-cta .arrow{transition:transform .18s ease;}
+  .card:hover .card-cta .arrow{transform:translateX(4px);}
+
+  footer.site{
+    border-top:1px solid var(--hair);
+    padding:56px 0 50px;
+  }
+  .contact-label{
+    padding:0 0 26px;
+    margin-bottom:26px;
+  }
+  .contact-grid{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+  }
+  .contact-item{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    border:1px dashed var(--hair);
+    padding:14px 18px;
+    min-width:170px;
+    flex-grow:1;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .contact-item:hover{
+    border-color:var(--brass);
+    background:var(--ink-2);
+  }
+  .contact-item .label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--slate);
+  }
+  .contact-item .value{
+    font-family:'Oswald', sans-serif;
+    font-size:15px;
+    font-weight:500;
+    color:var(--bone);
+    letter-spacing:0.01em;
+  }
+  .footer-bottom{
+    margin-top:32px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--slate);
+  }
+
+  /* ---------- DETAIL SCREEN ---------- */
+  .detail{
+    padding:44px 0 90px;
+    animation:fadein .25s ease;
+  }
+  @keyframes fadein{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+  .back-link{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--bone-dim);
+    cursor:pointer;
+    margin-bottom:40px;
+    background:none; border:none;
+  }
+  .back-link:hover{color:var(--brass);}
+
+  .detail-head{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    gap:24px;
+    border-bottom:1px solid var(--hair);
+    padding-bottom:34px;
+    margin-bottom:40px;
+    flex-wrap:wrap;
+  }
+  .detail-head h1{
+    font-family:'Oswald', sans-serif;
+    text-transform:uppercase;
+    font-weight:700;
+    font-size:clamp(32px, 5vw, 50px);
+    margin:0 0 12px;
+    line-height:1.03;
+  }
+  .detail-head .tagline{
+    font-size:17px;
+    color:var(--brass);
+    max-width:520px;
+    line-height:1.5;
+    margin:0;
+  }
+  .detail-stamp{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:9px 16px;
+    border:2px solid currentColor;
+    border-radius:2px;
+    transform:rotate(-3deg);
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+
+  .detail-grid{
+    display:grid;
+    grid-template-columns:1.6fr 1fr;
+    gap:56px;
+  }
+  @media (max-width:760px){
+    .detail-grid{grid-template-columns:1fr;}
+  }
+
+  .block{margin-bottom:38px;}
+  .block h4{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--brass);
+    margin:0 0 14px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .block h4::before{
+    content:"";
+    width:16px; height:1px; background:var(--brass);
+  }
+  .block p{
+    font-size:15.5px;
+    line-height:1.75;
+    color:var(--bone-dim);
+    margin:0 0 14px;
+  }
+  .block p:last-child{margin-bottom:0;}
+  .block strong{color:var(--bone);font-weight:600;}
+
+  .iter-block{
+    border-left:2px solid var(--hair);
+    padding-left:20px;
+    margin-bottom:30px;
+  }
+  .iter-block .iter-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--slate);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    margin-bottom:6px;
+  }
+  .iter-block h5{
+    font-family:'Oswald', sans-serif;
+    text-transform:uppercase;
+    font-size:17px;
+    margin:0 0 10px;
+    color:var(--bone);
+  }
+
+  aside.rail{
+    align-self:start;
+  }
+  .rail-box{
+    border:1px solid var(--hair);
+    background:var(--ink-2);
+    padding:22px;
+    margin-bottom:20px;
+  }
+  .rail-box h4{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--slate);
+    margin:0 0 14px;
+  }
+  .rail-chip-list{
+    display:flex; flex-wrap:wrap; gap:8px;
+  }
+  .rail-chip{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--bone-dim);
+    border:1px solid var(--hair);
+    padding:6px 10px;
+  }
+  .status-line{
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--bone-dim);
+  }
+  .status-line b{color:var(--bone);}
+
+  .next-project{
+    margin-top:50px;
+    padding-top:30px;
+    border-top:1px solid var(--hair);
+    display:flex; justify-content:space-between; align-items:center;
+    cursor:pointer;
+  }
+
+  /* ---------- SCREENSHOT GALLERY ---------- */
+  .gallery-block{
+    margin-bottom:44px;
+  }
+  .gallery{
+    display:flex;
+    flex-direction:column;
+    gap:26px;
+  }
+  .shot{
+    border:1px solid var(--hair);
+    background:var(--ink-2);
+    overflow:hidden;
+  }
+  .shot img{
+    display:block;
+    width:100%;
+    height:auto;
+    border-bottom:1px solid var(--hair);
+  }
+  .shot figcaption{
+    margin:0;
+    padding:14px 16px;
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--bone-dim);
+    font-family:'IBM Plex Sans', sans-serif;
+  }
+  .shot figcaption b{color:var(--brass);}
+  .shot img{cursor:zoom-in;}
+
+  /* ---------- LIGHTBOX ---------- */
+  .lightbox{
+    position:fixed; inset:0; z-index:200;
+    background:rgba(10,12,15,0.94);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:50px 24px;
+    cursor:zoom-out;
+    animation:lbfade .15s ease;
+  }
+  @keyframes lbfade{from{opacity:0;} to{opacity:1;}}
+  .lightbox img{
+    max-width:100%; max-height:75vh;
+    border:1px solid var(--hair);
+    cursor:default;
+  }
+  .lightbox .lightbox-caption{
+    max-width:720px;
+    margin-top:18px;
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--bone-dim);
+    text-align:center;
+    cursor:default;
+  }
+  .lightbox .lightbox-close{
+    position:absolute;
+    top:26px; right:30px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--bone-dim);
+    border:1px solid var(--hair);
+    background:var(--ink-2);
+    padding:8px 14px;
+    cursor:pointer;
+  }
+  .lightbox .lightbox-close:hover{color:var(--bone); border-color:var(--brass);}
+
+  .next-project:hover .np-title{color:var(--brass);}
+  .np-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--slate);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    margin-bottom:6px;
+  }
+  .np-title{
+    font-family:'Oswald', sans-serif;
+    text-transform:uppercase;
+    font-size:22px;
+    font-weight:600;
+    transition:color .18s ease;
+  }
+
+  #app{min-height:100vh;}
+  @media (max-width:600px){
+    .nav-links{display:none;}
+    .detail-head{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+const CONTACT = {
+  name:"Melvin Paul",
+  email:"melvinpaul950@gmail.com",
+  phone:"437-286-9635",
+  linkedin:"https://www.linkedin.com/in/melvin-paul-cspo%C2%AE-csm%C2%AE-5b898a125/",
+  github:"https://github.com/mpaul3",
+  resume:"resume.pdf"
+};
+
+function navHTML(crumb){
+  const brand = crumb
+    ? `<a href="#/">MELVIN PAUL</a> <span class="crumb-sep">/</span> <a href="#/">BUILDS</a> <span class="crumb-sep">/</span> <span class="crumb-current">${crumb.toUpperCase()}</span>`
+    : `<a href="#/">MELVIN PAUL <span>/ BUILDS</span></a>`;
+  return `
+    <header class="site">
+      <div class="wrap nav-row">
+        <div class="nav-brand">${brand}</div>
+        <div class="nav-links">
+          <a href="#/">Work</a>
+          <a href="javascript:void(0)" onclick="scrollToContact()">Contact</a>
+        </div>
+      </div>
+    </header>
+  `;
+}
+
+function scrollToContact(){
+  const el = document.getElementById('contact');
+  if(el) el.scrollIntoView({behavior:'smooth'});
+}
+
+function footerHTML(){
+  return `
+    <footer class="site" id="contact">
+      <div class="wrap">
+        <div class="section-label contact-label">
+          <h2>Contact</h2>
+          <span class="note">Reach out directly</span>
+        </div>
+        <div class="contact-grid">
+          <a class="contact-item" href="mailto:${CONTACT.email}">
+            <span class="label">Email</span>
+            <span class="value">${CONTACT.email}</span>
+          </a>
+          <a class="contact-item" href="tel:${CONTACT.phone.replace(/-/g,'')}">
+            <span class="label">Phone</span>
+            <span class="value">${CONTACT.phone}</span>
+          </a>
+          <a class="contact-item" href="${CONTACT.linkedin}" target="_blank" rel="noopener">
+            <span class="label">LinkedIn</span>
+            <span class="value">View profile →</span>
+          </a>
+          <a class="contact-item" href="${CONTACT.github}" target="_blank" rel="noopener">
+            <span class="label">GitHub</span>
+            <span class="value">mpaul3 →</span>
+          </a>
+          <a class="contact-item" href="${CONTACT.resume}" target="_blank" rel="noopener">
+            <span class="label">Resume</span>
+            <span class="value">Download PDF →</span>
+          </a>
+        </div>
+        <div class="footer-bottom">${CONTACT.name} · London, Ontario</div>
+      </div>
+    </footer>
+  `;
+}
+
+const PROJECTS = [
+  {
+    id:"practitioner",
+    title:"Practitioner",
+    tagline:"Structured learning, calibrated to you, in under two minutes.",
+    status:"live", statusLabel:"LIVE",
+    tag:"A learner-facing platform that builds a five-module course on any topic, calibrated to your actual level — not a generic curriculum.",
+    stack:["React (Vite)","Node.js / Express","Supabase (Postgres)","Claude Haiku","Claude Sonnet"],
+    screenshots:[
+      {src:"images/practitioner-course.jpg", caption:"Module sidebar with per-module progress, plus the Concept tab reframing the core idea before the how-to."},
+      {src:"images/practitioner-procedure.jpg", caption:"The Procedure tab — concrete, numbered steps with a Pro-Tip callout, not passive reading."}
+    ],
+    problem:"Every existing AI course tool is built for course <strong>creators</strong> — trainers, instructional designers, L&D teams. Nothing is built for the individual learner who just wants to get properly up to speed on a topic without enrolling in a three-month course or wading through generic slides.",
+    built:[
+      "A learner answers a short diagnostic and is calibrated into one of three knowledge tiers — beginner, intuitive, or practitioner — which sets the starting point for the course. From there, the five modules are sequenced to build the learner up progressively — beginner concepts through to advanced application — inside a single course, rather than dropping everything at one flat difficulty level.",
+      "Course content streams in live via server-sent events, so learners watch their course build in real time rather than staring at a spinner. Rather than passive video, each module includes decision-based simulations that force the learner to apply the concept, not just read about it, with a peer-to-peer tone enforced through detailed system prompting.",
+      "Each module runs through four stages — <strong>Concept, Procedure, Simulation, Recap</strong> — with decision-based simulations that ask the learner to apply an idea, not just recall it. A built-in Virtual Mentor answers questions within the course, scoped to the current module. Course generation costs roughly $0.13 per course, and a generated course can be revisited afterward without paying that generation cost again."
+    ],
+    statusLog:"Live, with all core phases complete and backed by a 50+ test suite. Adaptive calibration, content caching, and a contributor economy were identified and deliberately deferred to a post-launch roadmap."
+  },
+  {
+    id:"second-pm",
+    title:"Second PM",
+    tagline:"A second Product Manager in every discovery call.",
+    status:"build", statusLabel:"IN BUILD · PHASE 2",
+    tag:"A Chrome extension that silently co-pilots stakeholder discovery calls — surfacing the next best question before the moment passes.",
+    stack:["React + Vite","Chrome Manifest V3","Deepgram (streaming ASR)","Claude Sonnet","Supabase"],
+    screenshots:[
+      {src:"images/second-pm-01-setup.png", caption:"Pre-call setup — the PM loads context artifacts (user stories, customer segments, business context, market trends) before the session starts."},
+      {src:"images/second-pm-02-session.png", caption:"Live session view: transcript on the left, high-priority suggested questions on the right — each one grounded in a specific gap between what's been said and what the loaded artifacts assume."}
+    ],
+    problem:"Discovery calls lose focus. A stakeholder brings up something tangential, the conversation drifts, and by the time it circles back the PM has forgotten the three questions that actually mattered. Validated directly with practicing PMs as <strong>\"topic dilution\"</strong> — the original discovery intent gets buried under back-and-forth.",
+    built:[
+      "Built as an actual Chrome browser extension (Manifest V3) — not a standalone web app — so it can sit on top of whatever video call tool the PM is already using. It ships a popup UI to start and stop a session, a background service worker that captures the tab's audio, and a content script that streams live transcript and suggestions into the page.",
+      "Second PM works like a lawyer's junior passing notes, or a news anchor's producer feeding lines through an earpiece — present, silent, useful. The PM loads context artifacts before the call; live transcription streams in during it, and Second PM flags gaps and surfaces suggested questions without interrupting the conversation.",
+      "After the call, it generates a living Discovery Document — a knowledge base with a timestamped changelog that carries forward into future sessions, so the tool gets smarter about a given stakeholder relationship over time.",
+      "Two operating modes balance responsiveness against cost: a lightweight auto-analyze mode that fires as the transcript updates, and a full manual mode for deeper analysis on demand."
+    ],
+    statusLog:"Built through Phase 2 in Claude Code — cross-artifact follow-up detection, multi-session carry-forward, auto-analyze debounce logic. Live audio capture flow was in final debugging at last check-in."
+  },
+  {
+    id:"qa-stack",
+    title:"QA Stack",
+    tagline:"Any data operation, scored against ground truth.",
+    status:"live", statusLabel:"LIVE · OPEN SOURCE",
+    tag:"A verification framework that scores any AI-driven data operation against SQL ground truth — born out of a fintech transaction workspace.",
+    stack:["React","Express","SQLite","Gemma3 (Ollama, local)","AG Grid","Zustand"],
+    screenshots:[
+      {src:"images/qa-stack-01-flagged.png", caption:"Iteration One, Intelligent Workspace — natural language search interpreted into a live filter, flagged transactions surfaced instantly."},
+      {src:"images/qa-stack-dashboard-overview.png", caption:"Iteration Two, QA Stack — the full QA dashboard: every test scenario, pass/warn/fail counts, and a per-check results table."},
+      {src:"images/qa-stack-06-check-detail.png", caption:"A real Gemma inconsistency caught: intent and result checks passed, but the action didn't reach the expected state — exactly what the QA layer exists to catch."}
+    ],
+    problem:"AI assistants that take actions on data need to be trusted, not just believed. There was no lightweight way to verify, deterministically and repeatably, that an AI's understanding of a request — and its resulting actions — were actually correct.",
+    isIteration:true,
+    iterations:[
+      {
+        label:"Iteration One",
+        title:"Intelligent Workspace",
+        text:"A transaction workspace for financial operations teams: natural language querying over transaction data, bulk actions, a full audit log, and a QA layer to verify an AI assistant's actions were correct. Ran entirely on a local LLM (Gemma3 via Ollama) — a deliberate choice to keep sensitive financial data on-device and avoid per-query API costs for a feature that fires constantly. Built around a \"Thin AI\" philosophy: the model handles cognition, SQLite holds the ground truth, and humans approve any writes."
+      },
+      {
+        label:"Iteration Two — the pivot",
+        title:"QA Stack",
+        text:"Partway through building, the real product became obvious: it wasn't the transaction workspace that was valuable — it was the QA layer verifying the AI's work. Rebranded and repositioned as a general-purpose verification framework, scoring any AI action across three layers: <strong>Intent</strong> (did it understand the request), <strong>Results</strong> (correct and complete, no hallucinated data), and <strong>Actions</strong> (right state change, no collateral changes). Action verification uses SQLite savepoint rollback — the action runs for real inside a savepoint, gets checked against a verify query, then rolls back automatically. Real testing against Gemma3 surfaced genuine model inconsistencies that the QA system correctly caught and scored."
+      }
+    ],
+    built:[],
+    statusLog:"Live and open-source at <a href=\"https://github.com/mpaul3/qa-stack\" target=\"_blank\">github.com/mpaul3/qa-stack</a>."
+  },
+  {
+    id:"pm-lifecycle-mapper",
+    title:"PM Lifecycle Mapper",
+    tagline:"Vision mapper, not enforcer.",
+    status:"engine", statusLabel:"CONFIGURED · DOCUMENTED",
+    tag:"A Claude Project that guides PMs through the full product lifecycle — showing what's done, skipped, or flagged, without ever blocking progress.",
+    stack:["Claude Projects","746-line system prompt","Session state files","Versioned PRDs"],
+    screenshots:[
+      {src:"images/pm-lifecycle-mapper.png", caption:"The full lifecycle map — 7 stages, the Intent Router, the Stage 7 fork, and the data layers that feed every stage automatically."}
+    ],
+    problem:"PMs juggle scattered context across Jira, Confluence, meeting notes, and memory — with no lightweight way to see what stage a piece of work is genuinely at, what's been skipped, and what's about to bite them later. Existing tools either demand rigid process compliance or offer no structure at all.",
+    built:[
+      "Maps seven lifecycle stages — Discovery, Stakeholder Analysis, Requirements & Scope, Prototype & Testing, Delivery, Launch & Measurement — and a final stage that forks between <strong>Product Learning</strong> (iterative features) or <strong>Project Closure</strong> (net-new work). Every stage runs on transparent logic: <strong>Must have, Should have, Flag if missing, Tool generates.</strong>",
+      "Built on three principles: it's a <em>vision mapper</em>, not an enforcer — it never blocks progress or grades output. It <em>meets the PM where they are</em> — works with whatever data is dropped in, any format, any tool. And it <em>reflects truth honestly</em> — never manufactures data or assumes completion.",
+      "Extended into a <strong>Cross-Domain Lifecycle Generator</strong> — a meta-prompt that co-creates equivalent lifecycle configs for Marketing, Sales, and Customer Success by eliciting each practitioner's real workflow, rather than forcing PM's shape onto a different job."
+    ],
+    statusLog:"Complete and documented: full system prompt, starter knowledge files, a lifecycle visual map, and a comprehensive reference doc. Cross-domain extension built out for three additional roles as proof the pattern generalizes."
+  },
+  {
+    id:"day-zero",
+    title:"Day Zero",
+    tagline:"The conversation your product needs before the first line of code is written.",
+    status:"live", statusLabel:"LIVE · DEPLOYED",
+    tag:"A multi-model AI \"boardroom\" that stress-tests a founder's idea through structured debate — before any code gets written.",
+    stack:["Next.js","TypeScript","Tailwind","GPT-4o","Claude","Vercel"],
+    screenshots:[
+      {src:"images/day-zero-01-debate.png", caption:"The board debating a staffing-app idea — Sales Guy optimistic at 70%, Tech Guy skeptical at 31%, PM synthesizing a reframe at 74%."},
+      {src:"images/day-zero-03-settled.png", caption:"After the founder answers a targeted question, Tech Guy updates his position (27% → 52%) and the board moves toward a settled verdict."}
+    ],
+    problem:"Most product tools — Jira, Linear, Notion, Figma — assume you already know what to build. Nothing sits upstream of that, forcing founders to validate their own assumptions before committing engineering time.",
+    built:[
+      "Three AI personas debate a founder's idea sequentially, each with full context from the ones before it: a <strong>Sales Guy</strong> (GPT-4o) arguing market opportunity, a <strong>Tech Guy</strong> (Claude) arguing engineering reality, and a <strong>PM</strong> (Claude) synthesizing toward a settled scope. Each outputs a structured confidence score, so convergence is measured mathematically, not inferred from tone.",
+      "If the panel's confidence spread exceeds a threshold, the tool pauses and asks the founder one targeted question before continuing. The result: a settled document with a locked scope, a confidence-scored verdict, and a flagged critical risk pulled directly from the Tech Guy's unresolved concerns."
+    ],
+    statusLog:"Live and deployed at <a href=\"https://day-zero-nu.vercel.app\" target=\"_blank\">day-zero-nu.vercel.app</a>. Cost per full arbitration run: roughly $0.03."
+  },
+  {
+    id:"migrationiq",
+    title:"MigrationIQ",
+    tagline:"Know what a platform migration actually costs — before you commit the budget.",
+    status:"engine", statusLabel:"ENGINE COMPLETE",
+    tag:"A pre-migration intelligence tool that simulates a platform switch against synthetic data before any real implementation budget is spent.",
+    stack:["Node.js","Synthetic data engine","Salesforce rule engine","Next.js (planned)"],
+    problem:"Platform migrations are sold on faith. Companies commit implementation budget to a systems integrator without knowing, in advance, how much of their real data and workflow will survive the move intact. There's no independent way to pressure-test a migration before paying for one.",
+    built:[
+      "A seven-step pipeline: a 31-question intake wizard, source schema analysis, synthetic data generation (from schema metadata only — real records never touched), validation against a codified target-platform rule engine, iterative failure resolution, gap analysis, and a final assessment report.",
+      "The synthetic-data approach solves two problems at once: it sidesteps data-sensitivity concerns entirely, and removes the liability of an accuracy claim based on a customer's real data. MVP beachhead is HubSpot → Salesforce, with ERP migrations (QuickBooks → NetSuite) mapped as the growth path."
+    ],
+    statusLog:"The rule engine is complete, working code — 22 codified Salesforce validation rules, a synthetic HubSpot data generator, an iterative failure-resolution engine. A full interactive web demo was scoped and briefed for a follow-up build."
+  }
+];
+
+const STATS = [
+  {n:"6", label:"Projects Built"},
+  {n:"3", label:"Live & Deployed"},
+  {n:"2", label:"Engine / Configured"},
+  {n:"1", label:"Open Source"}
+];
+
+function statusClass(s){ return s; }
+
+function renderHome(){
+  const cards = PROJECTS.map(p => {
+    const thumb = (p.screenshots && p.screenshots.length)
+      ? `<div class="card-thumb"><img src="${p.screenshots[0].src}" alt="${p.title} preview" loading="lazy"></div>`
+      : `<div class="card-thumb placeholder"><span class="ph-label">Build log · no preview yet</span></div>`;
+    return `
+    <div class="card" onclick="location.hash='#/project/${p.id}'">
+      ${thumb}
+      <div class="card-body">
+        <div class="card-top">
+          <h3>${p.title}</h3>
+          <span class="stamp ${statusClass(p.status)}">${p.statusLabel}</span>
+        </div>
+        <p class="tag">${p.tag}</p>
+        <div class="chips">
+          ${p.stack.slice(0,3).map(s => `<span class="chip">${s}</span>`).join('')}
+          ${p.stack.length > 3 ? `<span class="chip">+${p.stack.length - 3}</span>` : ''}
+        </div>
+        <div class="card-cta">View the build <span class="arrow">→</span></div>
+      </div>
+    </div>
+  `;
+  }).join('');
+
+  const stats = STATS.map(s => `
+    <div class="ticket-stat"><b>${s.n}</b>${s.label}</div>
+  `).join('');
+
+  document.getElementById('app').innerHTML = `
+    ${navHTML()}
+
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow">Product Manager · London, Ontario</div>
+        <h1>Product manager<br>who <em>ships</em> the thing<br>himself.</h1>
+        <p class="lead">8+ years across B2B SaaS, fintech, and payments. I lead discovery, shape product direction, and turn ideas into shipped products. This portfolio shows the products I've recently designed, built, and deployed end to end.</p>
+        <div class="ticket-row">${stats}</div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="section-label">
+        <h2>The Pass</h2>
+        <span class="note">Click any project for the full build log</span>
+      </div>
+      <div class="grid">${cards}</div>
+    </section>
+
+    ${footerHTML()}
+  `;
+}
+
+function renderDetail(id){
+  const p = PROJECTS.find(x => x.id === id);
+  if(!p){ location.hash = '#/'; return; }
+  const idx = PROJECTS.indexOf(p);
+  const next = PROJECTS[(idx + 1) % PROJECTS.length];
+
+  let bodyHTML = '';
+  if(p.isIteration){
+    bodyHTML = `
+      <div class="block">
+        <h4>The Problem</h4>
+        <p>${p.problem}</p>
+      </div>
+      <div class="block">
+        <h4>What Was Built — Two Iterations</h4>
+        ${p.iterations.map(it => `
+          <div class="iter-block">
+            <div class="iter-label">${it.label}</div>
+            <h5>${it.title}</h5>
+            <p>${it.text}</p>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  } else {
+    bodyHTML = `
+      <div class="block">
+        <h4>The Problem</h4>
+        <p>${p.problem}</p>
+      </div>
+      <div class="block">
+        <h4>What Was Built</h4>
+        ${p.built.map(t => `<p>${t}</p>`).join('')}
+      </div>
+    `;
+  }
+
+  const galleryHTML = (p.screenshots && p.screenshots.length) ? `
+    <div class="block gallery-block">
+      <h4>From the Build</h4>
+      <div class="gallery">
+        ${p.screenshots.map(s => `
+          <figure class="shot">
+            <img src="${s.src}" alt="${p.title} screenshot" loading="lazy" data-caption="${s.caption}" onclick="openLightbox(this)">
+            <figcaption>${s.caption}</figcaption>
+          </figure>
+        `).join('')}
+      </div>
+    </div>
+  ` : '';
+
+  document.getElementById('app').innerHTML = `
+    ${navHTML(p.title)}
+
+    <div class="wrap detail">
+      <button class="back-link" onclick="location.hash='#/'">← Back to the pass</button>
+
+      <div class="detail-head">
+        <div>
+          <h1>${p.title}</h1>
+          <p class="tagline">${p.tagline}</p>
+        </div>
+        <span class="detail-stamp ${statusClass(p.status)}">${p.statusLabel}</span>
+      </div>
+
+      <div class="detail-grid">
+        <div>
+          ${bodyHTML}
+          ${galleryHTML}
+        </div>
+
+        <aside class="rail">
+          <div class="rail-box">
+            <h4>Tech Stack</h4>
+            <div class="rail-chip-list">
+              ${p.stack.map(s => `<span class="rail-chip">${s}</span>`).join('')}
+            </div>
+          </div>
+          <div class="rail-box">
+            <h4>Status</h4>
+            <p class="status-line">${p.statusLog}</p>
+          </div>
+        </aside>
+      </div>
+
+      <div class="next-project" onclick="location.hash='#/project/${next.id}'">
+        <div>
+          <div class="np-label">Next build</div>
+          <div class="np-title">${next.title}</div>
+        </div>
+        <div class="np-title">→</div>
+      </div>
+    </div>
+
+    ${footerHTML()}
+  `;
+  window.scrollTo(0,0);
+}
+
+function openLightbox(imgEl){
+  closeLightbox();
+  const overlay = document.createElement('div');
+  overlay.className = 'lightbox';
+  overlay.id = 'lightbox-overlay';
+  overlay.onclick = closeLightbox;
+  overlay.innerHTML = `
+    <button class="lightbox-close" onclick="event.stopPropagation(); closeLightbox();">Close ✕</button>
+    <img src="${imgEl.src}" alt="${imgEl.alt}">
+    <p class="lightbox-caption">${imgEl.dataset.caption || ''}</p>
+  `;
+  document.body.appendChild(overlay);
+}
+function closeLightbox(){
+  const existing = document.getElementById('lightbox-overlay');
+  if(existing) existing.remove();
+}
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeLightbox(); });
+
+function router(){
+  const hash = location.hash || '#/';
+  const match = hash.match(/^#\/project\/(.+)$/);
+  if(match){
+    renderDetail(match[1]);
+  } else {
+    renderHome();
+  }
+}
+
+window.addEventListener('hashchange', router);
+window.addEventListener('DOMContentLoaded', router);
+router();
+</script>
+</body>
+</html>
