@@ -177,84 +177,180 @@
     text-transform:uppercase;
   }
 
-  /* ---------- GRID / CARDS ---------- */
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+  /* ---------- CASE STUDY LIST ---------- */
+  .case-list{
+    display:flex;
+    flex-direction:column;
+    padding-bottom:70px;
+  }
+  .case-row{
+    display:flex;
+    align-items:center;
     gap:20px;
-    padding-bottom:80px;
-  }
-  .card{
-    border:1px solid var(--hair);
-    background:var(--ink-2);
-    display:flex; flex-direction:column;
-    cursor:pointer;
-    transition:border-color .18s ease, transform .18s ease;
-    position:relative;
-    overflow:hidden;
-  }
-  .card:hover{
-    border-color:var(--brass);
-    transform:translateY(-3px);
-  }
-  .card-thumb{
-    width:100%;
-    aspect-ratio:16/10;
-    overflow:hidden;
-    background:var(--ink);
+    padding:16px 4px;
     border-bottom:1px solid var(--hair);
+    cursor:pointer;
+    transition:background .15s ease, padding-left .15s ease;
+  }
+  .case-row:first-child{
+    border-top:1px solid var(--hair);
+  }
+  .case-row:hover{
+    background:var(--ink-2);
+    padding-left:10px;
+  }
+  .case-thumb{
+    flex-shrink:0;
+    width:104px;
+    height:70px;
+    overflow:hidden;
+    background:var(--ink-2);
+    border:1px solid var(--hair);
     position:relative;
   }
-  .card-thumb img{
+  .case-thumb img{
     width:100%; height:100%;
     object-fit:cover;
     object-position:top left;
     display:block;
     filter:saturate(0.92);
-    transition:transform .35s ease;
   }
-  .card:hover .card-thumb img{transform:scale(1.045);}
-  .card-thumb.placeholder{
+  .case-thumb.placeholder{
     display:flex; align-items:center; justify-content:center;
     background:
-      repeating-linear-gradient(135deg, var(--ink-2), var(--ink-2) 10px, #20242b 10px, #20242b 20px);
+      repeating-linear-gradient(135deg, var(--ink-2), var(--ink-2) 8px, #20242b 8px, #20242b 16px);
   }
-  .card-thumb.placeholder .ph-label{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:10.5px;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    color:var(--slate);
-    border:1px dashed var(--hair);
-    padding:6px 12px;
+  .case-thumb.emoji{
+    display:flex; align-items:center; justify-content:center;
+    font-size:30px;
     background:var(--ink-2);
   }
-  .card-body{
-    padding:22px 24px 24px;
-    display:flex; flex-direction:column; gap:16px;
-    flex-grow:1;
+  .case-thumb.placeholder .ph-dot{
+    width:5px; height:5px; border-radius:50%;
+    background:var(--slate);
   }
-  .card-top{
-    display:flex; justify-content:space-between; align-items:flex-start; gap:12px;
+
+  .section-divider{
+    margin:8px 0 36px;
   }
-  .card h3{
-    font-family:'Oswald', sans-serif;
-    text-transform:uppercase;
-    font-size:20px;
+
+  /* ---------- CASE STUDY DETAIL ---------- */
+  .snapshot-inline{
+    margin-bottom:28px;
+    padding-bottom:20px;
+    border-bottom:1px solid var(--hair);
+  }
+  .snapshot-inline p{
+    margin:0 0 8px;
+    font-size:14.5px;
+    line-height:1.6;
+    color:var(--bone-dim);
+  }
+  .snapshot-inline p:last-child{margin-bottom:0;}
+  .snap-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
     font-weight:600;
-    margin:0;
-    line-height:1.15;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--brass);
+    margin-right:10px;
   }
-  .stamp{
+  .bullet-list{
+    margin:0; padding:0;
+    list-style:none;
+  }
+  .bullet-list li{
+    position:relative;
+    padding-left:18px;
+    margin-bottom:10px;
+    font-size:15px;
+    line-height:1.65;
+    color:var(--bone-dim);
+  }
+  .bullet-list li:last-child{margin-bottom:0;}
+  .bullet-list li::before{
+    content:"—";
+    position:absolute;
+    left:0;
+    color:var(--brass);
+  }
+  .sub-challenge{
+    border-left:2px solid var(--brass);
+    padding-left:20px;
+    margin:24px 0;
+  }
+  .sub-challenge .sub-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--brass);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    margin-bottom:8px;
+  }
+  .case-emoji-badge{
+    font-size:34px;
+    line-height:1;
+    margin-bottom:10px;
+    display:block;
+  }
+  .company-stamp{
     font-family:'IBM Plex Mono', monospace;
     font-size:10px;
     font-weight:600;
     letter-spacing:0.08em;
     text-transform:uppercase;
-    padding:5px 9px;
-    border:1.5px solid currentColor;
+    padding:4px 9px;
+    border:1.3px solid var(--brass);
+    color:var(--brass);
     border-radius:2px;
-    transform:rotate(-3deg);
+    white-space:nowrap;
+  }
+  .case-role{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    color:var(--slate);
+    margin:2px 0 4px;
+  }
+  .case-body{
+    flex-grow:1;
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+  }
+  .case-top{
+    display:flex; align-items:baseline; gap:12px;
+  }
+  .case-row h3{
+    font-family:'Oswald', sans-serif;
+    text-transform:uppercase;
+    font-size:16.5px;
+    font-weight:600;
+    margin:0;
+    letter-spacing:0.01em;
+    white-space:nowrap;
+  }
+  .case-teaser{
+    font-size:13px;
+    line-height:1.4;
+    color:var(--bone-dim);
+    margin:0;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .stamp{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:9px;
+    font-weight:600;
+    letter-spacing:0.07em;
+    text-transform:uppercase;
+    padding:3px 7px;
+    border:1.3px solid currentColor;
+    border-radius:2px;
     white-space:nowrap;
     flex-shrink:0;
   }
@@ -263,35 +359,20 @@
   .stamp.build{color:var(--rust);}
   .stamp.engine{color:var(--brass);}
 
-  .card p.tag{
-    font-size:14px;
-    line-height:1.55;
-    color:var(--bone-dim);
-    margin:0;
-    flex-grow:1;
-  }
-  .chips{
-    display:flex; flex-wrap:wrap; gap:7px;
-  }
-  .chip{
+  .case-arrow{
+    flex-shrink:0;
     font-family:'IBM Plex Mono', monospace;
-    font-size:10.5px;
-    color:var(--slate);
-    border:1px solid var(--hair);
-    padding:4px 8px;
-    letter-spacing:0.02em;
-  }
-  .card-cta{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
     color:var(--brass);
-    display:flex; align-items:center; gap:8px;
-    margin-top:4px;
+    font-size:14px;
+    transition:transform .15s ease;
   }
-  .card-cta .arrow{transition:transform .18s ease;}
-  .card:hover .card-cta .arrow{transform:translateX(4px);}
+  .case-row:hover .case-arrow{transform:translateX(4px);}
+
+  @media (max-width:600px){
+    .case-thumb{width:76px; height:52px;}
+    .case-teaser{white-space:normal;}
+    .case-row h3{font-size:14.5px;}
+  }
 
   footer.site{
     border-top:1px solid var(--hair);
@@ -661,7 +742,200 @@ function footerHTML(){
   `;
 }
 
+const CASE_STUDIES = [
+  {
+    id:"lbmx-pay",
+    emoji:"💳",
+    title:"LBMX Pay",
+    fullTitle:"Redesigning Invoice Review Before Payment",
+    teaser:"AP teams weren't facing five separate screen problems; they were losing confidence across one connected workflow. Redesigning invoice review end-to-end contributed to a ~35% reduction in processing effort.",
+    company:"LBMX",
+    role:"Product Manager, Payments",
+    scope:"Pre-payment invoice review workflow: search, status, inspection, modification, validation, and payment submission",
+    stakeholders:"Enterprise accounts payable teams, Operations, Customer Success, Design, Engineering",
+    context:"Enterprise customers on LBMX processed large volumes of supplier invoices before releasing payments. The workflow spanned several dependent steps: locating invoices, reviewing details, making adjustments, resolving exceptions, and confirming payment, all of which had to be completed correctly before money moved. Early conversations surfaced specific complaints: search was difficult, review views were cluttered, editing was awkward. These read as symptoms, not the actual problem.",
+    challenge:"Mapping how AP users actually moved through the product clarified the real issue. They weren't facing five separate problems; they were struggling through one connected sequence: find invoice, understand status, inspect details, make corrections, validate, proceed to payment. Each step depended on the last. Uncertainty about an invoice's status eroded confidence before the editing step even began; friction at correction slowed validation; anything unresolved at the end created hesitation before payment. Improving individual screens wouldn't fix that. The product had to work as a workflow, not a set of features.",
+    myRole:[
+      "Ran discovery with enterprise AP users to see where they slowed down, lost confidence, or left the product to find information",
+      "Mapped the end-to-end pre-payment workflow and identified where friction accumulated across the chain",
+      "Reframed the product work from fixing individual screens to designing for the complete review sequence",
+      "Prioritized improvements across five areas: search and filtering, invoice detail review, modification and correction, status and exception visibility, and payment submission controls",
+      "Collaborated with Design through requirements and iteration, validating changes against the full workflow rather than each screen in isolation",
+      "Coordinated with Engineering to sequence improvements iteratively, avoiding a single large redesign that would disrupt enterprise teams mid-operation",
+      "Aligned with Operations and Customer Success to confirm proposed changes would hold up under real enterprise volume"
+    ],
+    outcome:"The redesigned workflow reduced invoice-processing effort and improved accuracy before payments released. Users moved through the review sequence with more confidence at each step: finding invoices reliably, understanding status without switching tools, making corrections with clear visibility into what changed, and proceeding to payment with fewer unresolved exceptions. Iterative delivery let enterprise teams adapt without disruption. The redesign contributed to approximately a 35% reduction in invoice-processing effort.",
+    tools:["User discovery","Workflow mapping","End-to-end journey analysis","Prioritization","Requirements definition","Design collaboration","Iterative delivery","Stakeholder alignment","Jira","Confluence"],
+    demonstrates:["Fintech PM ownership","End-to-end workflow thinking","Discovery","UX/control tradeoff judgment","Iterative delivery","Cross-functional collaboration","Enterprise B2B product sense"]
+  },
+  {
+    id:"edi-control-centre",
+    emoji:"🔌",
+    title:"EDI Control Centre",
+    fullTitle:"Turning Transaction Monitoring into Exception Management",
+    teaser:"Gave Support and Operations a snapshot of transaction health across 400+ daily document exchanges, so they could see what needed attention without reviewing each one individually.",
+    company:"LBMX",
+    role:"Product Manager, Special Projects",
+    scope:"Centralized EDI transaction monitoring, exception management, error reporting, and configurable alerts across supplier and member document exchanges",
+    stakeholders:"Support, Operations, Sales, Engineering, supplier and member organizations",
+    context:"LBMX's B2B commerce network carried EDI transactions (purchase orders, invoices, advance ship notices, acknowledgements) between suppliers and member organizations. At operating volume, the platform processed 400+ document exchanges daily across multiple trading partner configurations and document types. When a transaction failed, whether a mapping error, a transmission issue, or a rejected document, the information about what went wrong and who needed to act was scattered across systems. Support and Operations had to piece together status from multiple places just to identify what failed, why, and what to do next.",
+    challenge:"Support and Operations needed better visibility into transaction health, but paging through hundreds of transactions a day wasn't realistic. What they needed was a snapshot: a way to see what actually required attention without evaluating every transaction individually. A full transaction log would have been accurate, but it wouldn't have answered the question that mattered: does this transaction need action right now?",
+    myRole:[
+      "Led discovery with Support and Operations on how transaction failures were identified, escalated, and resolved, and where the process broke down",
+      "Mapped the operational workflow from transaction receipt through exception resolution to locate where time was lost",
+      "Designed the product around a snapshot of what needed attention, not a full transaction log, so users could see status without reviewing each transaction",
+      "Defined the core interaction model: transaction to status to exception to cause to action, without switching systems",
+      "Worked with Engineering to scope and prioritize: real-time visibility, centralized error reporting, supplier and member workflow filtering, and configurable threshold alerts",
+      "Collaborated with Sales on enterprise positioning; the visibility layer also served as a concrete demonstration of operational transparency for large accounts"
+    ],
+    outcome:"The EDI Control Centre gave Support and Operations centralized visibility into 400+ daily document transactions for the first time. Failed and delayed transactions could be identified without cross-referencing multiple systems. Configurable alerts meant the team no longer had to monitor the platform continuously; they set conditions and were notified when something needed action. Enterprise clients gained an operational transparency layer for their own reviews, which also became a proof point in Sales conversations with large accounts.",
+    tools:["Discovery","Operational workflow mapping","Problem reframing","Exception-management design","Configurable alert design","Prioritization","Requirements definition","Stakeholder alignment","Jira","Confluence"],
+    demonstrates:["Operational product thinking","Problem reframing","Discovery","B2B product design","Exception-management UX","Enterprise delivery","Cross-functional alignment","Sales-aware product decisions"]
+  },
+  {
+    id:"support-ai-assistant",
+    emoji:"🤖",
+    title:"Support AI Assistant",
+    fullTitle:"From Chatbot Request to In-Product Intelligence",
+    teaser:"Support needed to handle repeat questions without adding headcount. I defined what a native AI assistant needed to know, access, and hand off before Engineering could build it.",
+    company:"LBMX",
+    role:"Product Manager, Special Projects",
+    scope:"Evaluation and product direction-setting for AI-assisted support within the LBMX platform",
+    stakeholders:"Customer Support, Product, Engineering, Legal and Compliance, Customer Success",
+    context:"LBMX's support function handled a steady volume of recurring questions about platform behaviour, configuration options, workflow statuses, and document processing. Much of that knowledge lived in documentation, in Zendesk ticket history, and in experienced support staff who handled variations of the same questions regularly. As AI tooling matured, the team began looking at where it could reduce support load. The initial direction from the business was to add a chatbot, likely through a Zendesk integration.",
+    challenge:"Support needed a way to handle repeat questions without adding headcount as volume grew. The initial ask was a chatbot integration through Zendesk. Before recommending an approach, three things had to be nailed down: which questions could be safely automated, what product context the assistant would need to be useful, and what guardrails had to exist before it touched customer data.",
+    myRole:[
+      "Mapped the support ticket landscape to separate high-volume, low-complexity questions suited to automation from ones needing product context or human judgment",
+      "Evaluated chatbot and native in-product assistant approaches against tradeoffs in context-awareness, data access, user experience, and maintenance",
+      "Identified AI-specific product risks and built a framework for addressing each: hallucination, customer data exposure, access control, stale knowledge, response quality, escalation logic, and cost",
+      "Defined the requirements for a native assistant: retrieval architecture, permission model, anonymization requirements, escalation triggers, and success metrics",
+      "Aligned Engineering and Legal around what data the assistant could and could not access, and what guardrails had to be in place before any deployment"
+    ],
+    subChallengeLabel:"Laying the Groundwork",
+    subChallengeText:"A native, in-product assistant needed more foundation than a chatbot would. It had to know what screen a user was on, what data it could touch, and when to hand off to a person instead of guessing. None of that could be assumed; it had to be specified, checked against real workflows, and agreed on with Legal before anything shipped.",
+    whatIDid:[
+      "Mapped the assistant's capability surface against core workflows, identifying which question types could be resolved in-context (status lookups, alert configuration, document processing) versus which needed escalation to a human agent",
+      "Defined function-calling requirements per capability: what to invoke, what context parameters it receives, what it returns, and the fallback when it can't resolve",
+      "Specified business logic for how the assistant behaves across product states (active transaction review, failed document exceptions, alert configuration, payment submission), so responses reflected where the user actually was, not generic documentation",
+      "Defined the retrieval architecture: knowledge sources, indexing approach, how context gets injected per query, and how the assistant handles gaps versus confident answers",
+      "Wrote permission and anonymization requirements: what customer data could surface in responses, what had to be stripped before reaching the model, and how role-based access constrained retrieval scope",
+      "Established escalation triggers with explicit criteria: query types, confidence thresholds, and workflow states requiring a human instead of an in-product response",
+      "Defined success metrics Engineering and Support could track from day one: ticket deflection rate, first-contact resolution, escalation rate, average handling time, and answer accuracy against known-correct responses",
+      "Packaged all of it into a handoff-ready requirements document (capability map, function specs, business logic, retrieval and permission model, escalation logic, acceptance criteria), structured so Engineering could start scoping without additional discovery"
+    ],
+    outcome:"The work concluded with a complete engineering handoff: a native assistant requirements document covering capability scope, function calling specifications, business logic, retrieval architecture, permission and anonymization rules, escalation logic, and success metrics. Engineering had a clear starting point for scoping. Legal and Compliance had a governance framework to review. Customer Support had defined criteria for what responsible deployment would need to demonstrate before rollout. The direction and requirements approach influenced how the broader platform team framed AI-assisted feature work in adjacent product areas.",
+    tools:["Discovery","Support workflow analysis","Competitive evaluation","Build vs. buy analysis","Capability mapping","Function calling specification","Business logic requirements","Retrieval architecture design","Access control & anonymization","Escalation logic","Success metrics","Engineering handoff","Jira","Confluence"],
+    demonstrates:["AI product thinking","Technical groundwork before commitment","Build vs. buy judgment","Function calling & capability design","Business logic requirements","Responsible AI governance","Discovery","Technical product specification","Engineering handoff","Legal & compliance navigation"]
+  },
+  {
+    id:"dynamic-localization-security",
+    emoji:"🔐",
+    title:"Dynamic Localization & User Security Layer",
+    fullTitle:"Building Contextual Enterprise Reporting",
+    teaser:"Replaced hardcoded language, role, and fiscal-year logic scattered across the database, WebFOCUS, and the frontend with a single SQL-derived context layer, so new configurations could scale without new code, and role stayed enforced as access control, not a personalization setting.",
+    company:"LBMX",
+    role:"Senior Product Analyst",
+    scope:"Design and implementation of a SQL-derived user-context layer controlling language, role-based access, and fiscal-year configuration, propagated into WebFOCUS, a third-party embedded reporting platform",
+    stakeholders:"Engineering, Product, BI, Customer Success, enterprise clients across multiple countries and organizational configurations",
+    context:"LBMX served an enterprise customer base that wasn't uniform in how it operated. Users had different language preferences, different roles within their organizations, and different fiscal-year configurations (some ran January to December, others April to March or July to June). The reporting layer, partly delivered through WebFOCUS, a third-party embedded reporting platform, needed to adapt to all three variables per user. There was no centralized mechanism to determine the right configuration and propagate it reliably downstream.",
+    challenge:"As LBMX added customers across languages, roles, and fiscal-year setups, hardcoded logic for each configuration was getting harder to maintain and easy to get wrong. The reporting layer needed one reliable way to scale across all of it, instead of duplicating rules across the database, WebFOCUS, and the frontend separately. Role added a second dimension to get right: it wasn't just personalization, it governed what data users were permitted to access, so it needed to come from a trusted source, not parameters passed from the browser.",
+    myRole:[
+      "Analyzed the user attribute landscape to identify which variables were needed to configure each user's reporting experience correctly",
+      "Defined the three core dimensions of user context the system needed to derive: language (localization), role (access and label configuration), and fiscal year (reporting period)",
+      "Designed the contextual layer: a SQL-based derivation of dynamic variables from authenticated user information, established upstream and passed reliably to downstream consumers",
+      "Worked with Engineering to translate user attributes into typed variables: language preference, role classification, and fiscal-year start month",
+      "Scoped the WebFOCUS integration: what values needed to be passed, in what format, and how WebFOCUS would consume them to render the correct experience",
+      "Identified data quality dependencies (the derived variables were only as reliable as the upstream attributes) and defined defaults and validation logic for each",
+      "Documented the architecture and variable definitions to support ongoing maintenance"
+    ],
+    subChallengeLabel:"Role as a Security Variable",
+    subChallengeText:"Language and fiscal year are personalization variables. Getting them wrong produces the wrong experience, not a security failure: the user sees incorrect labels or shifted reporting periods, corrected by fixing the underlying attribute. Role is a different category. In the reporting context, role determined what data a user could see and what functions they could invoke. A role value overridden by the browser, rather than derived from the authenticated user's record in a trusted data layer, would be a real access-control vulnerability, not a configuration inconvenience.",
+    whatIDid:[
+      "Distinguished the three variables explicitly by risk profile: language and fiscal year as personalization, role as security-sensitive with different handling requirements",
+      "Established that all three variables would be derived at the SQL layer from authenticated user information, ensuring WebFOCUS consumed trusted context rather than browser-supplied parameters",
+      "Defined the handling difference: personalization variables could default sensibly when attributes were missing; role should fail explicitly rather than default to any level of access",
+      "Worked through failure modes with Engineering (missing metadata, stale attributes, misconfiguration) and ensured behavior was predictable and secure in each case"
+    ],
+    outcome:"The contextual layer established a single trusted source of user context that WebFOCUS and the reporting UI consumed without re-implementing business logic independently. Enterprise users across different language regions, organizational roles, and fiscal-year configurations received correctly rendered reporting experiences without manual setup. Role-based access enforcement moved to the data layer, reducing the risk of misconfigured access through client-side parameters. Duplicated configuration logic across WebFOCUS, the frontend, and the database was replaced by a single derivation point, lowering maintenance overhead as business rules evolved.",
+    tools:["User attribute analysis","SQL dynamic variable design","WebFOCUS integration scoping","Localization architecture","Role-based access control design","Personalization vs. authorization","Data quality assessment","Failure mode analysis","Confluence"],
+    demonstrates:["Technical product analysis","Contextual architecture thinking","Localization strategy","Role-based access control","Security-aware product design","Third-party integration design","SQL-layer logic","Data quality ownership","Enterprise configuration management"]
+  },
+  {
+    id:"report-builder",
+    emoji:"📊",
+    title:"Report Builder",
+    fullTitle:"Turning Flexible Reporting into a Usable Self-Service Analytics Experience",
+    teaser:"Recommended buying instead of building a reporting engine, then discovered flexibility alone wasn't enough: users needed context to understand the data before they could self-serve any of it.",
+    company:"LBMX",
+    role:"Senior Product Analyst",
+    scope:"Enterprise self-service reporting: build vs. buy evaluation, requirements definition, and reporting UX for a third-party embedded analytics integration",
+    stakeholders:"Product, Support, Operations, Engineering, enterprise customers",
+    context:"Enterprise customers wanted more control over how they viewed and analyzed their data: building reports for different user roles, choosing the fields that mattered to them, rearranging and summarizing information, saving reports for reuse, and modifying existing reports without relying on internal teams. The open question was whether to build this reporting experience natively or integrate an existing solution.",
+    challenge:"Building a flexible reporting engine internally would have required significant development effort: pivoting and grouping, filtering, calculations, report configuration, saved views, exporting, and performance across large datasets. After evaluating that scope against available vendor capabilities, integrating a third-party reporting solution let the team focus engineering effort on our data, workflows, and customer experience instead of recreating a mature analytics engine.",
+    myRole:[
+      "Worked with Product, Support, Operations, customers, and Engineering to understand reporting needs across different user roles",
+      "Evaluated the scope of building a native reporting engine against available third-party vendor capabilities",
+      "Recommended integrating a third-party reporting solution rather than rebuilding a mature analytics engine internally",
+      "Defined requirements for the integration and gathered usability feedback once customers began using it"
+    ],
+    subChallengeLabel:"Flexibility Wasn't the Real Problem",
+    subChallengeText:"Once customers began using the solution, technical flexibility alone didn't create a good self-service experience. Users could build highly customized reports, but many struggled with a more basic question: which data should I use? The original assumption was that giving users more reporting flexibility would let them answer their own questions. Customer feedback showed the real problem was closer to giving users enough context to understand the data, then giving them the flexibility to explore it.",
+    whatIDid:[
+      "Shifted focus from adding reporting functionality to making the underlying data easier to understand: clearer field names and descriptions, logical grouping of related fields, and fewer unnecessary fields",
+      "Guided users toward common reporting combinations and designed reports around specific user roles and use cases",
+      "Made saved reports easier to reuse and modify, rather than requiring a new report per question",
+      "Balanced the resulting tradeoff between flexibility and simplicity: guided reporting for common use cases, with deeper flexibility preserved for advanced users"
+    ],
+    outcome:"The work established self-service reporting capabilities for enterprise users and moved reporting away from a model where every new question required a custom report or an internal request. The bigger shift was in how the team thought about analytics products: the challenge wasn't simply giving users access to data, it was helping them understand enough about the data to confidently use it themselves.",
+    tools:["Customer discovery","Vendor evaluation","Build vs. buy analysis","Requirements definition","Usability feedback","Data model design","Reporting UX","Confluence"],
+    demonstrates:["Build vs. buy judgment","Self-service product design","Data model as UX","Customer discovery","Problem reframing","Enterprise analytics product sense","Cross-functional collaboration"]
+  }
+];
+
 const PROJECTS = [
+  {
+    id:"codebase-map",
+    title:"Codebase Map",
+    tagline:"Understand an unfamiliar repository without reading every file first.",
+    status:"live", statusLabel:"LIVE · OPEN SOURCE",
+    tag:"An agent skill for Claude Code and Codex that traces source-backed execution workflows through a repository and renders them as an interactive, self-contained HTML map.",
+    stack:["Claude Code / Codex plugin","Node.js","Source-backed static analysis","Self-contained HTML output"],
+    screenshots:[
+      {src:"images/codebase-map-workflows.png", caption:"Forward workflow trace on a real repo (Papermark): subway-style lanes like \"Email sign-in\" and \"Upload document,\" each expandable down to the exact function call at that step."},
+      {src:"images/codebase-map-dependencies.png", caption:"The reverse Dependencies view on another test repo (Documenso): searching a class surfaces its direct callers with source file and line number, plus which mapped workflows actually use it."}
+    ],
+    problem:"Getting oriented in an unfamiliar or inherited codebase usually means reading files one by one and building a mental map by hand. Static architecture diagrams go stale fast and describe intended structure, not what the code actually does.",
+    built:[
+      "Codebase Map works in two directions. <strong>Forward</strong>, from an entry point through workflow stages, functions, failure branches, external boundaries, and exact source locations. <strong>Backward</strong>, from a function or class to its direct callers, direct dependencies, and the mapped workflows that use it.",
+      "The idea started as wanting a visual mapper for my own projects, then became testing whether the approach generalized. I ran it against three established public repositories, FastAPI, Flask, and Django, to check it held up outside a codebase I already knew.",
+      "The output is a single self-contained HTML file: a repository and architecture overview, interactive execution workflows, operation-level dependency tracing, a searchable function and class inventory, direct callers and dependencies with source file and line references, and explicit static-analysis limitations rather than a false completeness score. No hosted service, API key, or network request is needed to open it.",
+      "It deliberately separates source facts from user-supplied context, application authorization from database enforcement, and unresolved static analysis from implemented execution, rather than blending them into one confident-looking diagram."
+    ],
+    statusLog:"Live and open-source at <a href=\"https://github.com/mpaul3/codebase-map\" target=\"_blank\">github.com/mpaul3/codebase-map</a>. Installable as a Claude Code or Codex plugin; validated with regression fixtures against real public repositories."
+  },
+  {
+    id:"financial-analyst-skill",
+    title:"Financial Analyst Skill",
+    tagline:"Built for rigour, not speed.",
+    status:"live", statusLabel:"LIVE",
+    tag:"A six-phase financial analysis skill that gates on data readiness, verifies every statement equation, and cites the source field and period behind every number, so nothing gets stated without a traceable source.",
+    stack:["Claude Skills (Claude Code plugin)","Structured task planning","Statement-equation verification","Source-citation enforcement"],
+    screenshots:[
+      {src:"images/financial-analyst-04-readiness.png", caption:"Readiness tab, Phase 1: a three-state data quality gate (Ready / Ready with Limitations / Blocked) that documents exactly what's missing and its impact before any analysis runs."},
+      {src:"images/financial-analyst-01-analysis.png", caption:"Analysis tab, Phase 4: sourced KPI cards, a standing-limitations banner, and explicit period-pair selection before the variance tables run, on a real three-year Redwood Specialty Foods dataset."},
+      {src:"images/financial-analyst-02-observations.png", caption:"Observations tab, Phase 5: every finding labeled Source Fact, Calculated Fact, Analyst Inference, or Unresolved, with the exact source field and period cited inline."},
+      {src:"images/financial-analyst-03-report.png", caption:"Report tab, Phase 6: the interpreted request, data readiness, and limitations table carried forward into a structured, audit-ready final report."}
+    ],
+    problem:"Most AI financial tools give fast numbers with no way to verify where they came from. When a CFO, board, or lender asks \"where did this number come from,\" a black-box analysis has no good answer.",
+    built:[
+      "The skill runs financial statements through six gated phases: <strong>Readiness</strong> (a data quality gate that outputs Ready, Ready with Limitations, or Blocked, never a soft label that hides real gaps), <strong>Task Plan</strong>, <strong>Verification</strong> (every statement equation checked mathematically), <strong>Analysis</strong>, <strong>Observations</strong>, and <strong>Report</strong>. No black box. Every number cites the source field and period it came from; if something can't be traced, it isn't stated.",
+      "Tested against a real case, Redwood Specialty Foods, three years of income statement and balance sheet data with no cash flow statement and no budget version, the skill flagged those gaps in the Readiness gate before running a single calculation, and returned Ready with Limitations rather than proceeding as if the data were complete.",
+      "The <strong>Analysis</strong> tab surfaced the real story in the numbers: revenue grew 16.7% (CAGR) from $31.5M to $42.9M across FY22 to FY24, while net income fell 46.5% over the same period, from $3.2M to $1.7M, as gross margin compressed from 38% to 33% and total debt rose 206% to $15.9M. Top-line growth and bottom-line performance had fully decoupled.",
+      "The <strong>Observations</strong> tab is the honesty layer: every finding is labeled Source Fact, Calculated Fact, Analyst Inference, or Unresolved, each with the exact source field and period cited inline, plus an \"Ask More\" button that opens a live, source-grounded Q&A on that specific finding.",
+      "The <strong>Report</strong> tab synthesizes everything into a structured 8-section layout, built to be sent directly to a CFO, board, or lender without cleanup: interpreted request, readiness, tasks, results, evidence, assumptions, independent review, and limitations, with full audit trail from source data to output."
+    ],
+    statusLog:"Fully built and demonstrated end to end against a real multi-year financial dataset, producing a complete gated pipeline from data-readiness check through to an audit-ready final report."
+  },
   {
     id:"practitioner",
     title:"Practitioner",
@@ -680,26 +954,6 @@ const PROJECTS = [
       "Each module runs through four stages — <strong>Concept, Procedure, Simulation, Recap</strong> — with decision-based simulations that ask the learner to apply an idea, not just recall it. A built-in Virtual Mentor answers questions within the course, scoped to the current module. Course generation costs roughly $0.13 per course, and a generated course can be revisited afterward without paying that generation cost again."
     ],
     statusLog:"Live, with all core phases complete and backed by a 50+ test suite. Adaptive calibration, content caching, and a contributor economy were identified and deliberately deferred to a post-launch roadmap."
-  },
-  {
-    id:"second-pm",
-    title:"Second PM",
-    tagline:"A second Product Manager in every discovery call.",
-    status:"build", statusLabel:"IN BUILD · PHASE 2",
-    tag:"A Chrome extension that silently co-pilots stakeholder discovery calls — surfacing the next best question before the moment passes.",
-    stack:["React + Vite","Chrome Manifest V3","Deepgram (streaming ASR)","Claude Sonnet","Supabase"],
-    screenshots:[
-      {src:"images/second-pm-01-setup.png", caption:"Pre-call setup — the PM loads context artifacts (user stories, customer segments, business context, market trends) before the session starts."},
-      {src:"images/second-pm-02-session.png", caption:"Live session view: transcript on the left, high-priority suggested questions on the right — each one grounded in a specific gap between what's been said and what the loaded artifacts assume."}
-    ],
-    problem:"Discovery calls lose focus. A stakeholder brings up something tangential, the conversation drifts, and by the time it circles back the PM has forgotten the three questions that actually mattered. Validated directly with practicing PMs as <strong>\"topic dilution\"</strong> — the original discovery intent gets buried under back-and-forth.",
-    built:[
-      "Built as an actual Chrome browser extension (Manifest V3) — not a standalone web app — so it can sit on top of whatever video call tool the PM is already using. It ships a popup UI to start and stop a session, a background service worker that captures the tab's audio, and a content script that streams live transcript and suggestions into the page.",
-      "Second PM works like a lawyer's junior passing notes, or a news anchor's producer feeding lines through an earpiece — present, silent, useful. The PM loads context artifacts before the call; live transcription streams in during it, and Second PM flags gaps and surfaces suggested questions without interrupting the conversation.",
-      "After the call, it generates a living Discovery Document — a knowledge base with a timestamped changelog that carries forward into future sessions, so the tool gets smarter about a given stakeholder relationship over time.",
-      "Two operating modes balance responsiveness against cost: a lightweight auto-analyze mode that fires as the transcript updates, and a full manual mode for deeper analysis on demand."
-    ],
-    statusLog:"Built through Phase 2 in Claude Code — cross-artifact follow-up detection, multi-session carry-forward, auto-analyze debounce logic. Live audio capture flow was in final debugging at last check-in."
   },
   {
     id:"qa-stack",
@@ -749,24 +1003,6 @@ const PROJECTS = [
     statusLog:"Complete and documented: full system prompt, starter knowledge files, a lifecycle visual map, and a comprehensive reference doc. Cross-domain extension built out for three additional roles as proof the pattern generalizes."
   },
   {
-    id:"day-zero",
-    title:"Day Zero",
-    tagline:"The conversation your product needs before the first line of code is written.",
-    status:"live", statusLabel:"LIVE · DEPLOYED",
-    tag:"A multi-model AI \"boardroom\" that stress-tests a founder's idea through structured debate — before any code gets written.",
-    stack:["Next.js","TypeScript","Tailwind","GPT-4o","Claude","Vercel"],
-    screenshots:[
-      {src:"images/day-zero-01-debate.png", caption:"The board debating a staffing-app idea — Sales Guy optimistic at 70%, Tech Guy skeptical at 31%, PM synthesizing a reframe at 74%."},
-      {src:"images/day-zero-03-settled.png", caption:"After the founder answers a targeted question, Tech Guy updates his position (27% → 52%) and the board moves toward a settled verdict."}
-    ],
-    problem:"Most product tools — Jira, Linear, Notion, Figma — assume you already know what to build. Nothing sits upstream of that, forcing founders to validate their own assumptions before committing engineering time.",
-    built:[
-      "Three AI personas debate a founder's idea sequentially, each with full context from the ones before it: a <strong>Sales Guy</strong> (GPT-4o) arguing market opportunity, a <strong>Tech Guy</strong> (Claude) arguing engineering reality, and a <strong>PM</strong> (Claude) synthesizing toward a settled scope. Each outputs a structured confidence score, so convergence is measured mathematically, not inferred from tone.",
-      "If the panel's confidence spread exceeds a threshold, the tool pauses and asks the founder one targeted question before continuing. The result: a settled document with a locked scope, a confidence-scored verdict, and a flagged critical risk pulled directly from the Tech Guy's unresolved concerns."
-    ],
-    statusLog:"Live and deployed at <a href=\"https://day-zero-nu.vercel.app\" target=\"_blank\">day-zero-nu.vercel.app</a>. Cost per full arbitration run: roughly $0.03."
-  },
-  {
     id:"migrationiq",
     title:"MigrationIQ",
     tagline:"Know what a platform migration actually costs — before you commit the budget.",
@@ -792,25 +1028,34 @@ const STATS = [
 function statusClass(s){ return s; }
 
 function renderHome(){
-  const cards = PROJECTS.map(p => {
+  const csRows = CASE_STUDIES.map(cs => `
+    <div class="case-row" onclick="location.hash='#/case-study/${cs.id}'">
+      <div class="case-thumb emoji">${cs.emoji}</div>
+      <div class="case-body">
+        <h3>${cs.title}</h3>
+        <div class="case-role">${cs.role}</div>
+        <p class="case-teaser">${cs.teaser}</p>
+      </div>
+      <div class="case-arrow">→</div>
+    </div>
+  `).join('');
+
+  const projRows = PROJECTS.map(p => {
     const thumb = (p.screenshots && p.screenshots.length)
-      ? `<div class="card-thumb"><img src="${p.screenshots[0].src}" alt="${p.title} preview" loading="lazy"></div>`
-      : `<div class="card-thumb placeholder"><span class="ph-label">Build log · no preview yet</span></div>`;
+      ? `<div class="case-thumb"><img src="${p.screenshots[0].src}" alt="${p.title} preview" loading="lazy"></div>`
+      : `<div class="case-thumb placeholder"><span class="ph-dot"></span></div>`;
+    const teaser = p.teaser || p.tag;
     return `
-    <div class="card" onclick="location.hash='#/project/${p.id}'">
+    <div class="case-row" onclick="location.hash='#/project/${p.id}'">
       ${thumb}
-      <div class="card-body">
-        <div class="card-top">
+      <div class="case-body">
+        <div class="case-top">
           <h3>${p.title}</h3>
           <span class="stamp ${statusClass(p.status)}">${p.statusLabel}</span>
         </div>
-        <p class="tag">${p.tag}</p>
-        <div class="chips">
-          ${p.stack.slice(0,3).map(s => `<span class="chip">${s}</span>`).join('')}
-          ${p.stack.length > 3 ? `<span class="chip">+${p.stack.length - 3}</span>` : ''}
-        </div>
-        <div class="card-cta">View the build <span class="arrow">→</span></div>
+        <p class="case-teaser">${teaser}</p>
       </div>
+      <div class="case-arrow">→</div>
     </div>
   `;
   }).join('');
@@ -825,18 +1070,24 @@ function renderHome(){
     <section class="hero">
       <div class="wrap">
         <div class="eyebrow">Product Manager · London, Ontario</div>
-        <h1>Product manager<br>who <em>ships</em> the thing<br>himself.</h1>
-        <p class="lead">8+ years across B2B SaaS, fintech, and payments. I lead discovery, shape product direction, and turn ideas into shipped products. This portfolio shows the products I've recently designed, built, and deployed end to end.</p>
+        <h1>Product manager who<br><em>leads</em> the work and<br><em>builds</em> the proof.</h1>
+        <p class="lead">8+ years leading discovery, product direction, and delivery across enterprise B2B, fintech, and payments. This portfolio pairs that professional case work with independently designed and built AI products, shipped end to end.</p>
         <div class="ticket-row">${stats}</div>
       </div>
     </section>
 
     <section class="wrap">
       <div class="section-label">
-        <h2>The Pass</h2>
-        <span class="note">Click any project for the full build log</span>
+        <h2>Case Studies</h2>
+        <span class="note">Professional work, discovery through delivery</span>
       </div>
-      <div class="grid">${cards}</div>
+      <div class="case-list section-divider">${csRows}</div>
+
+      <div class="section-label">
+        <h2>Side Projects</h2>
+        <span class="note">Independently designed, built, and shipped end to end</span>
+      </div>
+      <div class="case-list">${projRows}</div>
     </section>
 
     ${footerHTML()}
@@ -898,7 +1149,7 @@ function renderDetail(id){
     ${navHTML(p.title)}
 
     <div class="wrap detail">
-      <button class="back-link" onclick="location.hash='#/'">← Back to the pass</button>
+      <button class="back-link" onclick="location.hash='#/'">← Back to home</button>
 
       <div class="detail-head">
         <div>
@@ -942,6 +1193,106 @@ function renderDetail(id){
   window.scrollTo(0,0);
 }
 
+function renderCaseStudy(id){
+  const cs = CASE_STUDIES.find(x => x.id === id);
+  if(!cs){ location.hash = '#/'; return; }
+  const idx = CASE_STUDIES.indexOf(cs);
+  const next = CASE_STUDIES[(idx + 1) % CASE_STUDIES.length];
+
+  const subChallengeHTML = cs.subChallengeLabel ? `
+    <div class="sub-challenge">
+      <div class="sub-label">Challenge — ${cs.subChallengeLabel}</div>
+      <p style="font-size:15px; line-height:1.7; color:var(--bone-dim); margin:0;">${cs.subChallengeText}</p>
+    </div>
+    <div class="block">
+      <h4>What I Did</h4>
+      <ul class="bullet-list">
+        ${cs.whatIDid.map(t => `<li>${t}</li>`).join('')}
+      </ul>
+    </div>
+  ` : '';
+
+  document.getElementById('app').innerHTML = `
+    ${navHTML(cs.title)}
+
+    <div class="wrap detail">
+      <button class="back-link" onclick="location.hash='#/'">← Back to home</button>
+
+      <div class="detail-head">
+        <div>
+          <span class="case-emoji-badge">${cs.emoji}</span>
+          <h1>${cs.title}</h1>
+          <p class="tagline">${cs.fullTitle}</p>
+        </div>
+        <span class="company-stamp">${cs.company}</span>
+      </div>
+
+      <div class="detail-grid">
+        <div>
+          <div class="block">
+            <div class="snapshot-inline">
+              <p><span class="snap-label">Company</span>${cs.company}</p>
+              <p><span class="snap-label">Role</span>${cs.role}</p>
+              <p><span class="snap-label">Scope</span>${cs.scope}</p>
+              <p><span class="snap-label">Stakeholders</span>${cs.stakeholders}</p>
+            </div>
+          </div>
+
+          <div class="block">
+            <h4>Context</h4>
+            <p>${cs.context}</p>
+          </div>
+
+          <div class="block">
+            <h4>Challenge</h4>
+            <p>${cs.challenge}</p>
+          </div>
+
+          <div class="block">
+            <h4>My Role</h4>
+            <ul class="bullet-list">
+              ${cs.myRole.map(t => `<li>${t}</li>`).join('')}
+            </ul>
+          </div>
+
+          ${subChallengeHTML}
+
+          <div class="block">
+            <h4>Outcome / Impact</h4>
+            <p>${cs.outcome}</p>
+          </div>
+        </div>
+
+        <aside class="rail">
+          <div class="rail-box">
+            <h4>Tools &amp; Ways of Working</h4>
+            <div class="rail-chip-list">
+              ${cs.tools.map(s => `<span class="rail-chip">${s}</span>`).join('')}
+            </div>
+          </div>
+          <div class="rail-box">
+            <h4>What This Demonstrates</h4>
+            <div class="rail-chip-list">
+              ${cs.demonstrates.map(s => `<span class="rail-chip">${s}</span>`).join('')}
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="next-project" onclick="location.hash='#/case-study/${next.id}'">
+        <div>
+          <div class="np-label">Next case study</div>
+          <div class="np-title">${next.title}</div>
+        </div>
+        <div class="np-title">→</div>
+      </div>
+    </div>
+
+    ${footerHTML()}
+  `;
+  window.scrollTo(0,0);
+}
+
 function openLightbox(imgEl){
   closeLightbox();
   const overlay = document.createElement('div');
@@ -963,9 +1314,12 @@ document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeLightb
 
 function router(){
   const hash = location.hash || '#/';
-  const match = hash.match(/^#\/project\/(.+)$/);
-  if(match){
-    renderDetail(match[1]);
+  const projectMatch = hash.match(/^#\/project\/(.+)$/);
+  const caseStudyMatch = hash.match(/^#\/case-study\/(.+)$/);
+  if(projectMatch){
+    renderDetail(projectMatch[1]);
+  } else if(caseStudyMatch){
+    renderCaseStudy(caseStudyMatch[1]);
   } else {
     renderHome();
   }
